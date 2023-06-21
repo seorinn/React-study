@@ -1,39 +1,26 @@
 import {useState} from "react";
+import "./Body.css";
+
+function Viewer({number}){
+    return <div>{number%2===0 ? <h3>짝수</h3>: <h3>홀수</h3>}</div>;
+}
 
 function Body(){
-    const [name, setName] = useState("");
-    const [gender, setGender] = useState("");
-    const [birth, setBirth] = useState("");
-    const [bio, setBio] = useState("");
-    const onChangeName = (e) =>{
-        setName(e.target.value);
-    };
-    const onChangeGender = (e) =>{
-        setGender(e.target.value);
-    };
-    const onChangeBirth = (e) =>{
-        setBirth(e.target.value);
-    };
-    const onChangeBio = (e) =>{
-        setBio(e.target.value);
-    };
+   const [number, setNumber] = useState(0);
+   const onIncrease = () => {
+    setNumber(number+1);
+   }
+   const onDecrease = () => {
+    setNumber(number-1);
+   }
     return (
-        <div> 
+        <div>
+            <h2>{number}</h2> 
+            <Viewer number={number}/>
+
             <div>
-                <input value={name} onChange={onChangeName} placeholder="이름"/>
-            </div>
-            <div>
-                <select value={gender} onChange={onChangeGender}>
-                    <option key = {""}></option>
-                    <option key = {"남성"}>남성</option>
-                    <option key = {"여성"}>여성</option>
-                </select>
-            </div>
-            <div>
-                <input type="date" value={birth} onChange={onChangeBirth} />
-            </div>
-            <div>
-                <textarea value={bio} onChange={onChangeBio} />
+                <button onClick = {onDecrease}>-</button>
+                <button onClick = {onIncrease}>+</button>
             </div>
         </div>
     );
