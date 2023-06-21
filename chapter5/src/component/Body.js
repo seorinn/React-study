@@ -1,25 +1,40 @@
-//import React from "react";
-import "./Body.css";
-/*
-function Body({children}){
-    //const {name, location, favorList} = props;
-    console.log(children);
-    return (
-        <div className="body">{children}</div>
-    );
-}
-export default Body;
-*/
+import {useState} from "react";
 
 function Body(){
-    function handleOnClick(e){
-        alert(e.target.name);
-        console.log(e.target.name);
-    }
+    const [name, setName] = useState("");
+    const [gender, setGender] = useState("");
+    const [birth, setBirth] = useState("");
+    const [bio, setBio] = useState("");
+    const onChangeName = (e) =>{
+        setName(e.target.value);
+    };
+    const onChangeGender = (e) =>{
+        setGender(e.target.value);
+    };
+    const onChangeBirth = (e) =>{
+        setBirth(e.target.value);
+    };
+    const onChangeBio = (e) =>{
+        setBio(e.target.value);
+    };
     return (
-        <div className="body">
-            <button name = "buttonA" onClick = {handleOnClick}> buttonA</button>
-            <button name = "buttonB" onClick = {handleOnClick}> buttonB</button>
+        <div> 
+            <div>
+                <input value={name} onChange={onChangeName} placeholder="이름"/>
+            </div>
+            <div>
+                <select value={gender} onChange={onChangeGender}>
+                    <option key = {""}></option>
+                    <option key = {"남성"}>남성</option>
+                    <option key = {"여성"}>여성</option>
+                </select>
+            </div>
+            <div>
+                <input type="date" value={birth} onChange={onChangeBirth} />
+            </div>
+            <div>
+                <textarea value={bio} onChange={onChangeBio} />
+            </div>
         </div>
     );
 }
