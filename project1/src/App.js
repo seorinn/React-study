@@ -2,6 +2,7 @@ import './App.css';
 import Viewer from "./component/Viewer";
 import Controller from "./component/Controller";
 import {useRef, useEffect, useState} from "react";
+import Even from "./component/Even";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,9 +13,10 @@ function App() {
   const handleChangeText = (e) => {
     setText(e.target.value);
   };
-  const didMountRef=useRef(false);
+ const didMountRef=useRef(false);
 
   useEffect(() => {
+  /*
     const intervalID = setInterval(() =>{
       console.log("깜빡");
     }, 1000);
@@ -22,7 +24,7 @@ function App() {
       console.log("clean up");
       clearInterval(intervalID);
     }
-    /*
+    */
     if(!didMountRef.current){
       didMountRef.current = true;
       return;
@@ -30,13 +32,12 @@ function App() {
     else{
       console.log("component updated")
     }
-    */
+
   });
 
   useEffect(()=> {
     console.log("component mount");
   }, []);
-
 
   return (
     <div className="App">
@@ -46,6 +47,7 @@ function App() {
       </section>
       <section>
         <Viewer count = {count} />
+        {count %2 === 0 && <Even />}
       </section>
       <section>
         <Controller handleSetCount={handleSetCount}/>
