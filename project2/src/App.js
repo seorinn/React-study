@@ -2,11 +2,44 @@ import './App.css';
 import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
-//import {useState} from "react";
+import {useState, useRef} from "react";
+
+const mockTodo = [
+  {
+    id: 0,
+    isDone: false,
+    context: "Study React",
+    createdDate: new Date().getTime(),    
+  },
+  {
+   id: 1,
+   isDone: false,
+   context: "Do Laundry",
+   createdDate: new Date().getTime(),    
+  },
+  {
+   id: 2,
+   isDone: false,
+   context: "Practice to Sing",
+   createdDate: new Date().getTime(),    
+  }
+];
 
 function App() {
+  const [todo, setTodo] = useState(mockTodo);
+  const idRef = useRef(3);
+  const onCreate = (content) => {
+    const newItem = {
+      id: idRef.current, 
+      content,
+      isDone: false,
+      createdDate: new Date().getTime(),
+    };
+    setTodo([newItem, ...todo]);
+    idRef.current += 1;
+  }
+
 /*
-  const [date, setDate] = useState("");
   const [text, setText] = useState("새로운 Todo...");
   const [search, setSearch] = useState("검색어를 입력하세요");
 
@@ -37,7 +70,7 @@ function App() {
         <TodoList search = {search} handleSearch = {handleSearch}/>
       </section> */}
       <Header/>
-      <TodoEditor/>
+      <TodoEditor onCreate={onCreate}/>
       <TodoList/>
     </div>  
   );
