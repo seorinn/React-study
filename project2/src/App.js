@@ -8,19 +8,19 @@ const mockTodo = [
   {
     id: 0,
     isDone: false,
-    context: "Study React",
+    content: "Study React",
     createdDate: new Date().getTime(),    
   },
   {
    id: 1,
    isDone: false,
-   context: "Do Laundry",
+   content: "Do Laundry",
    createdDate: new Date().getTime(),    
   },
   {
    id: 2,
    isDone: false,
-   context: "Practice to Sing",
+   content: "Practice to Sing",
    createdDate: new Date().getTime(),    
   }
 ];
@@ -38,42 +38,24 @@ function App() {
     setTodo([newItem, ...todo]);
     idRef.current += 1;
   }
-
-/*
-  const [text, setText] = useState("새로운 Todo...");
-  const [search, setSearch] = useState("검색어를 입력하세요");
-
-  const handleSetDate = (e) => {
-    setDate(e.target.value);
+  const onUpdate = (targetId) => {
+    setTodo(
+      todo.map((it) => 
+          it.id === targetId ? { ...it, isDone: !it.isDone } : it
+      )
+    );
   };
-  const handleSetText = (e) => {
-    setText(e.target.value);
+  const onDelete = (targetId) => {
+    setTodo(todo.filter((it) => it.id !== targetId));   
   };
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  }
-  const handleAddItem = () =>{
-    TodoItem()
-  }
-*/
+
   return (
     <div className="App">
-      {/* <section>
-        <Header date = {date} handleSetDate = {handleSetDate}/>
-      </section>
-      <section>
-        <TodoEditor text = {text} handleSetText = {handleSetText} handleAddItem = {handleAddItem}/>
-        
-        //{count %2 === 0 && <Even />}
-      </section>
-      <section>
-        <TodoList search = {search} handleSearch = {handleSearch}/>
-      </section> */}
       <Header/>
       <TodoEditor onCreate={onCreate}/>
-      <TodoList/>
+      <TodoList todo={todo} onUpdate = {onUpdate} onDelete = {onDelete}/>
     </div>  
   );
-  }
+}
 
 export default App;
