@@ -2,8 +2,10 @@ import './App.css';
 import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
-// import TestComp from './component/Testcomp';
-import {useCallback, useRef, useReducer} from "react";
+import React, { useMemo, useCallback, useRef, useReducer } from "react";
+
+export const TodoStateContext = React.createContext();
+export const TodoDispatchContext = React.createContext();
 
 const mockTodo = [
   {
@@ -53,7 +55,6 @@ function App() {
   const [todo, dispatch] = useReducer(reducer, mockTodo);
   const idRef = useRef(3);
   const onCreate = (content) => {
-    // const newItem = {
     dispatch({
       type: "CREATE",
       newItem: {
@@ -63,7 +64,6 @@ function App() {
         createdDate: new Date().getTime(),
       },
     });
-    // setTodo([newItem, ...todo]);
     idRef.current += 1;
   }
   const onUpdate = useCallback((targetId) => {
@@ -71,26 +71,27 @@ function App() {
       type: "UPDATE",
       targetId,
     });
-    // setTodo(
-    //   todo.map((it) => 
-    //       it.id === targetId ? { ...it, isDone: !it.isDone } : it
-    //   )
-    // );
   }, []);
   const onDelete = useCallback((targetId) => {
     dispatch({
       type: "DELETE",
       targetId,
     });
-    // setTodo(todo.filter((it) => it.id !== targetId));   
+  }, []);
+
+  const memoizedDispatches = useMemo(() => {
+    return {onCreate, onUpdate, onDelete};
   }, []);
 
   return (
     <div className="App">
-      {/* <TestComp/> */}
       <Header/>
-      <TodoEditor onCreate={onCreate}/>
-      <TodoList todo={todo} onUpdate = {onUpdate} onDelete = {onDelete}/>
+        <TodoStateContext.Provider value = {todo}>
+          <TodoDispatchContext.Provider value = {memoizedDispatches}>
+            <TodoEditor />
+            <TodoList />
+          </TodoDispatchContext.Provider>
+        </TodoStateContext.Provider>
     </div>  
   );
 }
