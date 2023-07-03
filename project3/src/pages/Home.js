@@ -1,27 +1,12 @@
-import Button from "../component/Button";
-import Header from "../component/Header";
+import Editor from "../component/Editor";
 
 const Home = () => {
     return (
         <div>
-            <Header
-                title={"Home"}
-                leftChild={
-                    <Button 
-                        type="positive"
-                        text="positive" 
-                        onClick={() => {
-                            alert("positive button");
-                    }}/>
-                }
-                rightChild={
-                    <Button 
-                        type="negative"
-                        text="negative" 
-                        onClick={() => {
-                            alert("negative button");
-                    }}/>
-                }
+            <Editor
+                onSubmit={() => {
+                    alert(("작성이 완료되었습니다"));
+                }}   
             />      
         </div>
     );
