@@ -13,6 +13,7 @@ const New = () => {
     }
 
     const onSubmit = (data) => {
+        alert("작성을 완료했습니다!");
         const { date, content, emotionId } = data;
         onCreate(date, content, emotionId);
         navigate("/", {replace: true});
