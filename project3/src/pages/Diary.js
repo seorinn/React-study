@@ -3,7 +3,8 @@ import Button from "../component/Button";
 import Header from "../component/Header";
 import Viewer from "../component/Viewer";
 import useDiary from "../hooks/useDiary";
-import { getFormattedDate } from "../util";
+import { getFormattedDate, setPageTitle } from "../util";
+import { useEffect } from "react";
 
 
 const Diary = () => {
@@ -11,6 +12,10 @@ const Diary = () => {
     const { id } = useParams();
     const data = useDiary(id);
     // console.log(data);
+
+    useEffect(()=>{
+        setPageTitle(`나의 기록`);
+    })
 
     const goBack = () => {
         navigate(-1);
